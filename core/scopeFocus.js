@@ -7,12 +7,6 @@ function createScope(option) {
     return {
         id: option.id,
         scope: option.scope,
-        scopeIn() {
-            console.log(`scope ${this.id} in`);
-        },
-        scopeOut() {
-            console.log(`scope ${this.id} out`);
-        }
     }
 }
 
@@ -22,7 +16,7 @@ function scopeFocus(options) {
     let ids = {}; // { 1: scope1, 2: scope2, 3: scope3, 4: scope4 }
     const scopeIn = () => console.log('scopeIn');
     const scopeOut = () => console.log('scopeOut');
-    let curId = 1;
+    let curId = null;
 
     init(options);
     function init(options) {
@@ -64,9 +58,11 @@ function scopeFocus(options) {
     function focus(id) {
         const oldId = curId;
         if(oldId && oldId !== id) {
-            ids[oldId].scopeOut();
+            ids[oldId].scope.scopeOut();
         }
-        ids[id].scopeIn();
+        if(id) {
+          ids[id].scope.scopeIn();
+        }
         curId = id;
     }
 
@@ -78,20 +74,23 @@ function scopeFocus(options) {
         else {
             scopeOut();
         }
+        curId = nId;
+        return curId;
+    }
+
+    function updateFocus(direct) {
+      const itemNewId = ids[curId].scope[direct]();
+      if(itemNewId) {
+          return null;
+      } else {
+          return update(direct);
+      }
     }
 
     return {
-        up() {
-            update('up');
-        },
-        down() {
-            update('down');
-        },
-        left() {
-            update('left');
-        },
-        right() {
-            update('right');
-        },
+      up: () => updateFocus('up'),
+      down: () => updateFocus('down'),
+      left: () => updateFocus('left'),
+      right: () => updateFocus('right'),
     };
 }

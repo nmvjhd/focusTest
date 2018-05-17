@@ -6,9 +6,7 @@ function listFocus(options) {
     // 横向
     const ORITATION = 'vert';   // land | vert
     let ids = {}; // { 1: elem1, 2: elem2, 3: elem3, 4: elem4 }
-    const scopeIn = () => console.log('scopeIn');
-    const scopeOut = () => console.log('scopeOut');
-    let curId = 1;
+    let curId = null;
 
     init(options);
     function init(options) {
@@ -48,7 +46,9 @@ function listFocus(options) {
         if(oldId && oldId !== id) {
             ids[oldId].classList.remove('focus');
         }
-        ids[id].classList.add('focus');
+        if(id) {
+          ids[id].classList.add('focus');
+        }
         curId = id;
     }
 
@@ -60,20 +60,24 @@ function listFocus(options) {
         else {
             scopeOut();
         }
+        curId = nId;
+        return curId;
+    }
+
+    function scopeIn() {
+      focus(1);
+    }
+
+    function scopeOut() {
+      focus(null);
     }
 
     return {
-        up() {
-            update('up');
-        },
-        down() {
-            update('down');
-        },
-        left() {
-            update('left');
-        },
-        right() {
-            update('right');
-        },
+        up: () => update('up'),
+        down: () => update('down'),
+        left: () => update('left'),
+        right: () => update('right'),
+        scopeIn,
+        scopeOut,
     }
 }
