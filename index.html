@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .aaa li.focus{
+            background: red;
+        }
+    </style>
+</head>
+<body>
+    <ul class="aaa" scope-id="1">
+        scope1
+        <li focus-id="1">1</li>
+        <li focus-id="2">2</li>
+        <li focus-id="3">3</li>
+        <li focus-id="4">4</li>
+        <li focus-id="5">5</li>
+        <li focus-id="6">6</li>
+    </ul>
+
+    <ul class="bbb" scope-id="2">
+        scope2
+        <li focus-id="1">1</li>
+        <li focus-id="2">2</li>
+        <li focus-id="3">3</li>
+        <li focus-id="4">4</li>
+        <li focus-id="5">5</li>
+        <li focus-id="6">6</li>
+    </ul>
+
+    <ul class="ccc" scope-id="3">
+        scope3
+        <li focus-id="1">1</li>
+        <li focus-id="2">2</li>
+        <li focus-id="3">3</li>
+        <li focus-id="4">4</li>
+        <li focus-id="5">5</li>
+        <li focus-id="6">6</li>
+    </ul>
+
+    <script src="./core/listFocus.js"></script>
+    <script src="./core/scopeFocus.js"></script>
+<script>
+    const focusCallback = scopeFocus({
+        elem: document.body,
+    });
+    // window.onKeyUp = focusCallback.up;
+    // window.onKeyDown = focusCallback.down;
+    // window.onKeyLeft = focusCallback.left;
+    // window.onKeyRight = focusCallback.right;
+    document.addEventListener('keydown', e => {
+        console.log(e.keyCode);
+        switch (e.keyCode) {
+            case 37: {
+                focusCallback.left();
+                break;
+            }
+            case 38: {
+                focusCallback.up();
+                break;
+            }
+            case 39: {
+                focusCallback.right();
+                break;
+            }
+            case 40: {
+                focusCallback.down();
+                break;
+            }
+        }
+    })
+</script>
+</body>
+</html>
