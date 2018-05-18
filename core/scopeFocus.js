@@ -31,6 +31,7 @@ function scopeFocus(options) {
             return prev;
         }, {});
 
+        curId = options.initScope;
         focus(curId);
     }
 
