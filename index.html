@@ -43,31 +43,31 @@
     <script src="./core/listFocus.js"></script>
     <script src="./core/scopeFocus.js"></script>
 <script>
-    const focusCallback = scopeFocus({
+    const scope = scopeFocus({
         elem: document.body,
         initScope: 1,
     });
-    // window.onKeyUp = focusCallback.up;
-    // window.onKeyDown = focusCallback.down;
-    // window.onKeyLeft = focusCallback.left;
-    // window.onKeyRight = focusCallback.right;
+    // window.onKeyUp = scope.up;
+    // window.onKeyDown = scope.down;
+    // window.onKeyLeft = scope.left;
+    // window.onKeyRight = scope.right;
     document.addEventListener('keydown', e => {
         console.log(e.keyCode);
         switch (e.keyCode) {
             case 37: {
-                focusCallback.left();
+                scope.move('left');
                 break;
             }
             case 38: {
-                focusCallback.up();
+                scope.move('up');
                 break;
             }
             case 39: {
-                focusCallback.right();
+                scope.move('left');
                 break;
             }
             case 40: {
-                focusCallback.down();
+                scope.move('down');
                 break;
             }
         }
